@@ -9,7 +9,7 @@ ruleta_precision_github/
 ├── README.md
 ├── src/
 │   └── ruleta_precision.s
-└── docs/
+├── docs/
     ├── 01_estrategias_desarrollo.md
     ├── 02_calculos_systick.md
     ├── 03_registros_configurados.md
@@ -18,6 +18,7 @@ ruleta_precision_github/
     ├── 06_explicacion_codigo.md
     └── evidencias/
         └── README.md
+└── prompts
 ```
 
 ## Hardware utilizado
