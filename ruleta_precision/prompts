@@ -1,0 +1,29 @@
+Prompts utilizados durante el desarrollo del reto:
+
+1. Tengo que hacer una ruleta de precisión con el STM32F407 en ensamblador Thumb-2 Ya estuve mirando la cheat sheet y veo que se realizar con instrucciones como LDR, STR, CMP, B, BL, AND, ORR y desplazamientos. 
+   Cómo podría organizar el programa de una forma sencilla sin usar HAL ni librerías?
+
+2. Según lo que entiendo, antes de usar los GPIO tengo que habilitar el reloj desde RCC. Voy a utilizar GPIOA para el pulsador y GPIOD para los LEDs 
+   Explicame qué registros tengo que configurar y por qué
+
+3. Voy a usar PD8 hasta PD15 como salidas. Estuve revisando que cada pin usa dos bits en el registro MODER y que 01 significa salida 
+   Cómo saco el valor que tengo que escribir para configurar esos 8 pines
+
+4. Para mover el LED pensé en guardar la posición en un registro y hacer desplazamientos, por ejemplo: de 00000001 a 00000010, luego 00000100 y así 
+   cómo puedo hacer el barrido de los 8 LEDs de esta manera y volver al primero cuando llegue al último
+
+5. Explicame SysTick que no entiendo nada
+
+6. Eso tiene bandera COUNTFLAG. Como la práctica pide trabajar en polling y no con interrupciones, cómo puedo esperar 1 ms 
+
+7. Cuando el usuario falle necesito dejar quieto el LED donde presionó durante 2 segundos y después volver a empezar. Si acierta, quiero que el LED objetivo parpadee tres veces.
+   Explica
+
+8. Este es el código que llevo de la ruleta. ¿Me puedes revisar si realmente estoy trabajando a nivel de registros y si estoy usando correctamente RCC, GPIO y SysTick 
+   No quiero que lo hagas más avanzado, solo corregir errores manteniendo instrucciones parecidas a las de este ducumento (**la cheat sheet**).
+
+9. Ayudame a comentarlo de manera organizada
+
+10. Necesito hacer la documentación del repositorio. 
+    Con base en el código que ya tengo, ayúdame a organizar los cálculos de SysTick, la tabla de registros con dirección base y offset, el diagrama de flujo y el diagrama del hardware sin agregar cosas 
+    que no esté usando realmente en el programa tqm manito
