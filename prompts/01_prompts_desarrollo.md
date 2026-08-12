@@ -1,14 +1,14 @@
 # Prompts utilizados durante el desarrollo del reto
 
-> **Nota:** Estos prompts están organizados a partir del proceso de desarrollo de la práctica. Reflejan los conceptos trabajados durante el reto y el uso de material de apoyo como la *cheat sheet* de ARM/Thumb-2, el mapa de registros del STM32F407 y la documentación de GPIO y SysTick.
+> **Nota:** Estos prompts están organizados a partir del proceso de desarrollo de la práctica.
 
-## Prompt 1 — Planeación bare-metal
+## Prompt 1 
 
-Tengo que implementar una "Ruleta de Precisión" en un STM32F407VET6 usando únicamente ensamblador ARM Thumb-2 y acceso directo a registros. Ya revisé la cheat sheet y quiero limitarme a instrucciones sencillas como `LDR`, `STR`, `MOV`, `CMP`, `B`, `BL`, `BX`, `AND`, `ORR`, `BIC`, `TST` y desplazamientos lógicos.
+Tengo que implementar una "Ruleta de Precisión" en un STM32F407VET6 usando únicamente ensamblador ARM Thumb-2 y acceso directo a registros, quiero limitarme a instrucciones sencillas como LDR, STR, MOV, CMP, B, BL, BX, AND, ORR, BIC, TST y desplazamientos lógicos.
 
-Ayúdame a dividir el problema en bloques simples: configuración de reloj, GPIO de salida para 8 LEDs, entrada para pulsador, SysTick en polling, barrido, debouncing y evaluación de acierto/fallo. No uses HAL, CMSIS-Driver ni retardos con NOP.
+Ayúdame a dividir el problema en bloques simples: configuración de reloj, SysTick en polling, etc.
 
-## Prompt 2 — RCC y GPIO a nivel de registros
+## Prompt 2 — 
 
 Quiero configurar directamente los registros del STM32F407. Según lo que he estudiado, primero debo habilitar el reloj de los puertos en `RCC_AHB1ENR` y después configurar `MODER`, `OTYPER`, `OSPEEDR` y `PUPDR`.
 
@@ -62,46 +62,45 @@ Con base en la cheat sheet de Thumb-2, quiero hacerlo con instrucciones simples 
 
 Explícame por qué esto sí es temporización por hardware y no un delay por decremento arbitrario.
 
-## Prompt 8 — Debouncing de WK_UP en PA0
+## Prompt 8 — Debouncing de K_UP en PA0
 
-El pulsador integrado `WK_UP` está conectado a `PA0`. Quiero leerlo directamente desde `GPIOA_IDR`, usando el bit 0, y configurarlo como entrada con pull-down.
+El pulsador integrado K_UP está conectado a PA0. Quiero leerlo directamente desde GPIOA_IDR, usando el bit 0, y configurarlo como entrada con pull-down.
 
 Para el antirrebote quiero tomar 20 muestras consecutivas separadas por 1 ms usando SysTick. Si alguna lectura vuelve a cero, la pulsación debe descartarse.
 
 Ayúdame a implementar esta estrategia en Thumb-2 usando un registro como contador y solamente instrucciones básicas de la cheat sheet. También explícame por qué 20 muestras de 1 ms corresponden a 20 ms de debouncing.
 
-## Prompt 9 — Evaluación de acierto y fallo
+## Prompt 9 
 
-El LED objetivo será el cuarto, por lo tanto su máscara es `0x08`. La posición actual está guardada en `R4`.
+El LED objetivo será el cuarto, por lo tanto su máscara es 0x08. La posición actual está guardada en R4.
 
-Quiero evaluar la jugada usando `CMP` y saltos condicionales. Si `R4 == 0x08`, el LED objetivo debe parpadear tres veces. Si no coincide, el LED incorrecto debe permanecer fijo durante 2 segundos y después la ruleta debe reiniciar.
+Quiero evaluar la jugada usando CMP. Si R4 == 0x08, el LED objetivo debe parpadear tres veces. Si no coincide, el LED incorrecto debe permanecer fijo durante 2 segundos y después el juego sigue.
 
-Ayúdame a estructurar esta lógica usando etiquetas y saltos Thumb-2 de forma sencilla y fácil de explicar en una sustentación.
+Ayúdame a estructurar esta lógica de forma sencilla y fácil.
 
-## Prompt 10 — Revisión técnica del código final
+## Prompt 10 
 
-Revisa mi código final de la Ruleta de Precisión pensando en una sustentación oral. No quiero que lo reescribas con técnicas más avanzadas.
+Revisa mi código final de la Ruleta de Precisión pensando en una sustentación oral.
 
 Quiero que verifiques únicamente:
 
-- acceso bare-metal a RCC, GPIO y SysTick;
-- uso de `PD8–PD15` como salidas;
-- uso de `PA0/WK_UP` como entrada;
-- SysTick de 1 ms en polling;
-- barrido mediante una máscara one-hot y `LSLS`;
-- solo un LED encendido a la vez;
-- debouncing de 20 ms;
-- objetivo en `0x08`;
-- fallo congelado 2 s;
-- tres parpadeos en caso de acierto.
+- acceso bare-metal a RCC, GPIO y SysTick
+- uso de PD8 – PD15 como salidas
+- uso de PA0/WK_UP como entrada
+- SysTick de 1 ms en polling
+- barrido mediante una máscara one-hot y LSLS
+- solo un LED encendido a la vez
+- debouncing de 20 ms
+- objetivo en 0x08
+- fallo congelado 2 s
+- tres parpadeos en caso de acierto
 
-Después explícame qué hacen las instrucciones más importantes (`LDR`, `STR`, `ORR`, `BIC`, `AND`, `TST`, `CMP`, `LSLS`, `BL`, `BX LR`, `PUSH` y `POP`) dentro de este programa.
 
-## Prompt 11 — Tabla de registros para GitHub
+## Prompt 11 
 
-Necesito documentar los registros que modifiqué en el proyecto. Ya tengo identificados `RCC_CR`, `RCC_CFGR`, `RCC_AHB1ENR`, `GPIOA_MODER`, `GPIOA_PUPDR`, `GPIOA_IDR`, `GPIOD_MODER`, `GPIOD_OTYPER`, `GPIOD_OSPEEDR`, `GPIOD_PUPDR`, `GPIOD_BSRR`, `SYST_CSR`, `SYST_RVR` y `SYST_CVR`.
+Necesito documentar los registros que modifiqué en el proyecto. 
 
-Organízalos en una tabla con dirección base, offset, dirección final, valor hexadecimal/máscara o campo configurado y justificación técnica. No agregues periféricos que no aparezcan en el código.
+Quiero una tabla con dirección base, offset, dirección final, valor hexadecimal/máscara o campo configurado y justificación técnica.
 
 ## Prompt 12 — Diagrama de flujo
 
