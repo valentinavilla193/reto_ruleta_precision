@@ -71,7 +71,6 @@ GPIO = 0 -> LED apagado
 - [Diagrama de flujo lógico](docs/04_diagrama_flujo.md)
 - [Diagrama de bloques de hardware y asignación de pines](docs/05_hardware_y_pines.md)
 - [Explicación detallada del código](docs/06_explicacion_codigo.md)
-- [Carpeta para evidencias reales](docs/evidencias/README.md)
 
 ## Código fuente
 
