@@ -15,9 +15,8 @@ ruleta_precision_github/
 │    ├── 03_registros_configurados.md
 │    ├── 04_diagrama_flujo.md
 │    ├── 05_hardware_y_pines.md
-│    ├── 06_explicacion_codigo.md
-│    └── evidencias/
-│        └── README.md
+│    └──  06_explicacion_codigo.md
+│   
 └── prompts
 ```
 
